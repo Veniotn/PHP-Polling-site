@@ -2,11 +2,9 @@
 
 
     /* Center the login screen */
-
-
-    body{
-        text-align: center;
-    }
+body{
+    text-align: center;
+}
 
 
 #headerMessage{
@@ -18,6 +16,7 @@
     form {
         display: inline-block;
         text-align: left;
+        back
     }
 
 /* Style the form inputs */
@@ -32,6 +31,7 @@ input[type="password"] {
     border-radius: 5px;
     border: 1px solid #0c0c0c;
     margin-bottom: 10px;
+    background: rgba(123,165,155,0.64);
     width: 100%;
     max-width: 300px;
 }
