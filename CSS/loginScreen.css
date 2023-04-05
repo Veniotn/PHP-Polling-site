@@ -4,7 +4,12 @@
     /* Center the login screen */
 body{
     text-align: center;
+    background-color: black;
 }
+
+    .main{
+        background-color: black;
+    }
 
 
 #headerMessage{
@@ -16,7 +21,6 @@ body{
     form {
         display: inline-block;
         text-align: left;
-        back
     }
 
 /* Style the form inputs */

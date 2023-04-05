@@ -1,0 +1,21 @@
+body{
+    background-color: rgba(66, 103, 95, 0.64);
+    text-align: center;
+}
+form{
+    display: inline-block;
+    text-align: center;
+}
+
+/*Candidate button styles */
+input[type ='submit']{
+    background-color: #5469cb;
+    font-size: 30px;
+    padding: 15px;
+    border-radius: 10px;
+    margin-bottom: 20px;
+    display: flex;
+    text-align: center;
+    flex-direction: column;
+
+}

@@ -9,47 +9,63 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST') {
     $loginPassword = $_POST['password'];
 
 
-    // TODO: Check if the username and password are valid
+    //Check if the username and password are valid
 
     //Connect to database
     $servername = "localhost";
-    $dataBaseName = "PollingSystemDatabase";
+    $databaseName = "PollingSystemDatabase";
     $username = "root";
     $password = "root";
-    $dataBase = new mysqli($servername, $username, $password, $dataBaseName);
+    $database = createConnection($servername, $username, $password, $databaseName);
 
-    //Check connection
-    if ($dataBase->connect_error){
-        die("Connection to " . $dataBaseName . " failed." . $dataBase->connect_error);
-    }
+    //set the db properties as session variables.
+    $_SESSION['serverName'] = $servername;
+    $_SESSION['dbUsername'] = $username;
+    $_SESSION['dbPassword'] = $password;
+    $_SESSION['dbName'] = $databaseName;
 
-    //Query the database
-    $databaseQuery = "INSERT INTO voters(Login, Password) VALUE ('" . $login . "', '" . $loginPassword . "')";
+
+
+    //Query the database(return the id so we can use it as a session token).
+    $databaseQuery = $database->prepare("SELECT VoterID, hasVoted FROM voters WHERE Login = ? AND Password = ?");
+    $databaseQuery->bind_param("ss", $login, $loginPassword);
+    $databaseQuery->execute();
+
+
+    $queryResult = $databaseQuery->get_result();
+
 
     //check if the query was successful
-    if ($dataBase->query($databaseQuery) === true){
-        echo "Sucessfully inserted data.";
+    if ($queryResult->num_rows > 0){
+
+        //grab the query result as its own object
+        $data = $queryResult->fetch_assoc();
+        //store the id and the login as session variables.
+        $_SESSION['id'] = $data['VoterID'];
+        $_SESSION['login'] = $login;
+        $_SESSION['database'] = $database;
+
+        if (!$data['hasVoted']){
+            header("Location: ../html/votingScreen.html");
+        }
+
+        echo " <h1>Vote has already been casted!!</h1>";
     }
     else{
-        echo "Error inserting data.";
+        echo " <h1>Incorrect username or password.</h1>";
     }
 
-//
-//    // For the purpose of this example, we'll hard-code some valid credentials
-//    $valid_users = array(
-//        'admin' => 'password123',
-//        'user1' => 'qwerty456',
-//        'user2' => 'asdfgh789'
-//    );
-//
-//    if (array_key_exists($username, $valid_users) && $valid_users[$username] == $password) {
-//        // Successful login, set session variables and redirect to dashboard page
-//        $_SESSION['username'] = $username;
-//        header('Location: dashboard.php');
-//        exit();
-//    } else {
-//        // Invalid credentials, display error message
-//        $error_msg = 'Invalid username or password. Please try again.';
-//        echo  $error_msg;
-//    }
+
+
+}
+
+
+
+function createConnection($serverName,  $userName, $password, $databaseName){
+    $database = new mysqli($serverName, $userName, $password, $databaseName);
+
+    if ($database->connect_error){
+        die("Connection to " . $databaseName . " failed." . $database->connect_error);
+    }
+    return $database;
 }
