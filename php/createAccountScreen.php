@@ -4,7 +4,8 @@
 <head>
     <meta charset="UTF-8">
     <title>Create Account</title>
-    <link rel="stylesheet" type="text/css" href="../CSS/loginScreen.css">
+    <link rel="stylesheet" type="text/css" href="../CSS/loginStyles.css">
+    <link rel="stylesheet" href="../CSS/basicStyles.css">
 </head>
 
 

@@ -3,19 +3,22 @@
 <head>
   <meta charset="UTF-8">
   <title>NSCC 2023 Polling!</title>
-  <link rel="stylesheet" type="text/css" href="../CSS/loginScreen.css">
+  <link rel="stylesheet" type="text/css" href="../CSS/loginStyles.css">
+  <link rel="stylesheet" type="text/css" href="../CSS/basicStyles.css">
+
 </head>
 <body>
 <h1 id="headerMessage">Login Screen</h1>
-<form action="../php/loginScreen.php" method="post">
+<div class="loginButtons">
+  <form action="../php/loginScreen.php" method="post">
   <label for="username">Username:</label>
   <input type="text" id="username" name="username" required><br>
-
   <label for="password">Password:</label>
   <input type="password" id="password" name="password" required><br>
 
   <input type="submit" value="Login">
-  <button id="createAccountButton" onclick="location.href='../php/createAccountScreen.php'">Create Account</button>
-</form>
+  </form>
+  <button id="createAccountButton"  onclick="location.href='../php/createAccountScreen.php'">Create Account</button>
+</div>
 </body>
 </html>

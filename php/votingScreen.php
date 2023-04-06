@@ -1,7 +1,8 @@
 <?php
+include 'util.php';
+
+
 session_start();
-
-
 if ($_SERVER['REQUEST_METHOD'] == 'POST'){
 //Check which button they pressed.
     $candidate = $_POST['Candidate'];
@@ -26,19 +27,6 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST'){
 }
 
 
-function createConnection($serverName,  $userName, $password, $databaseName){
-    $database = new mysqli($serverName, $userName, $password, $databaseName);
 
-    if ($database->connect_error){
-        die("Connection to " . $databaseName . " failed." . $database->connect_error);
-    }
-    return $database;
-}
 
-function updateQueryOneParam($db, $query, $param){
-    $sqlQuery = $db->prepare($query);
-    $sqlQuery->bind_param("s", $param);
-    $sqlQuery->execute();
-
-}
 

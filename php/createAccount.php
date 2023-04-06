@@ -1,4 +1,5 @@
 <?php
+include 'util.php';
 
 if ($_SERVER['REQUEST_METHOD'] == 'POST') {
     session_start();
@@ -8,25 +9,16 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST') {
     $loginPassword = $_POST['password'];
 
     //Connect to database
-    $server = "localhost";
-    $serverUserName = "root";
-    $serverPassword = "root";
-    $serverDatabaseName = "PollingSystemDatabase";
+    $serverName = "localhost";
+    $dbUserName = "root";
+    $dbPassword = "root";
+    $dbName = "PollingSystemDatabase";
 
-    $dataBaseConnection = new mysqli($server, $serverUserName, $serverPassword, $serverDatabaseName);
-    if ($dataBaseConnection->connect_error){
-        die("Connection to " . $serverDatabaseName . " failed." . $dataBaseConnection->connect_error);
-    }
+    $dataBaseConnection = createConnection($serverName, $dbUserName, $dbPassword, $dbName);
 
-    //prepare the statement for security
-    $sqlQuery = $dataBaseConnection->prepare("SELECT login FROM voters WHERE Login = ?");
+    $sqlText = "SELECT login FROM voters WHERE Login = ?";
+    $sqlResult = selectQueryOneParam($dataBaseConnection, $sqlText, $login);
 
-    //bind the variable to delete special characters.
-    $sqlQuery->bind_param("s", $login);
-
-    $sqlQuery->execute();
-
-   $sqlResult = $sqlQuery->get_result();
 
    //if the query comes back with records, set the session variable and redirect back to display the error
    //on the create account page.

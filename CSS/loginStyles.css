@@ -1,27 +1,13 @@
 
-
-
-    /* Center the login screen */
-body{
-    text-align: center;
-    background-color: black;
-}
-
-    .main{
-        background-color: black;
-    }
-
-
 #headerMessage{
     vertical-align: top;
 
 }
 
-/* Style the form */
-    form {
-        display: inline-block;
-        text-align: left;
-    }
+form {
+    display: flex;
+    text-align: left;
+}
 
 /* Style the form inputs */
 label {
@@ -48,16 +34,18 @@ input[type="submit"] {
     border: none;
     border-radius: 5px;
     cursor: pointer;
+    margin-top: 5px;
+    margin-bottom: 5px;
 }
 
 /* Style the create account button */
 
-    #createAccountButton{
-        background-color: #5469cb;
-        color: #ffffff;
-        padding: 10px 20px;
-        border: none;
-        border-radius: 5px;
-        cursor: pointer;
-    }
-
+#createAccountButton{
+    background-color: #5469cb;
+    color: #ffffff;
+    padding: 10px 20px;
+    border: none;
+    border-radius: 5px;
+    cursor: pointer;
+    text-align: center;
+}
