@@ -1,9 +1,10 @@
 <?php
 include 'util.php';
-session_start();
+
 
 // Check if the form was submitted
 if ($_SERVER['REQUEST_METHOD'] == 'POST') {
+    session_start();
 
     // Get the username and password from the form data
     $login = $_POST['username'];
@@ -46,6 +47,7 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST') {
         }
         else{
             echo " <h1>Vote has already been casted!!</h1>";
+            echo "<button id='mainMenuButton' onclick=\"location.href='./loginPage.php'\">Return</button>";
         }
 
     }
@@ -62,21 +64,13 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST') {
         }
         else{
             //if they are neither voter or admin, they have inputted incorrectly.
-            echo " <h1>Incorrect username or password.</h1>";
+            $_SESSION['error'] = "Incorrect username or password.";
+            header("Location: ./loginPage.php");
+            exit();
+
+
         }
     }
-
-
-
-
-
-
-
-
-
-
-
-
 }
 
 

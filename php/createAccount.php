@@ -38,7 +38,7 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST') {
 
     if ($sqlQuery->execute()){
         echo "login inserted!";
-        header("Location: ../html/loginScreen.html");
+        header("Location: ./loginPage.php");
     }
     else{
         die("Insert failed.");

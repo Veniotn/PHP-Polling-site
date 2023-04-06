@@ -23,7 +23,7 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST'){
 
 
     echo "<h1> Successfully voted for $candidate! </h1>";
-    echo "<button id='mainMenuButton' onclick=\"location.href='../html/loginScreen.html'\">Main Menu!</button>";
+    echo "<button id='mainMenuButton' onclick=\"location.href='./loginPage.php'\">Main Menu!</button>";
 }
 
 

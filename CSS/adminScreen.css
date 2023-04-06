@@ -6,7 +6,22 @@
     background-color: rgba(84,105,203,0.64);
     border-radius: 10px;
 }
+.topSection{
+    text-align: center;
+}
 
+#fixIssuesButton{
+    margin-top: 20px;
+    background-color: #D11F3C;
+    padding: 15px 32px;
+    text-align: center;
+    display: inline-block;
+    font-size: 20px;
+    font-weight: bold;
+    margin-bottom: 50px;
+    cursor: auto;
+    border-radius: 9px;
+}
 #headerMessage{
     text-align: center;
     font-size: 64px;
@@ -15,17 +30,4 @@
 #pollingResultsMessage{
 
     text-align: center;
-}
-
-/* Style the button in the middle section */
-.fix-issues-button {
-    display: block;
-    margin: 10px auto;
-    padding: 10px 20px;
-    background-color: #007bff;
-    color: #fff;
-    border: none;
-    border-radius: 10px;
-    font-size: 18px;
-    cursor: pointer;
 }

@@ -4,10 +4,6 @@
 
 }
 
-form {
-    display: flex;
-    text-align: left;
-}
 
 /* Style the form inputs */
 label {
@@ -21,9 +17,11 @@ input[type="password"] {
     border-radius: 5px;
     border: 1px solid #0c0c0c;
     margin-bottom: 10px;
-    background: rgba(123,165,155,0.64);
+    background: rgba(255, 255, 255, 0.64);
+    color: black;
     width: 100%;
     max-width: 300px;
+    font-weight: bolder;
 }
 
 /* Style the form submit button */

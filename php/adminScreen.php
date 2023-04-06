@@ -6,9 +6,13 @@
     <link rel="stylesheet" href="../CSS/adminScreen.css">
     <link rel="stylesheet" href="../CSS/basicStyles.css">
 </head>
-<h1 id="headerMessage">Admin Panel</h1>
+
 <body>
-<h1 id="pollingResultsMessage">Polling results</h1>
+<div class="topSection">
+    <h1 id="headerMessage">Admin Panel</h1>
+    <h1 id="pollingResultsMessage">Polling results</h1>
+    <button id="fixIssuesButton">Fix Issues</button>
+</div>
 
 <?php
 include "util.php";
@@ -61,6 +65,7 @@ printCandidateInfo($dataRow);
 echo "</div>";
 
 ?>
+
 
 
 </body>
