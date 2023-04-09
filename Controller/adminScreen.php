@@ -1,25 +1,17 @@
-<!DOCTYPE html>
-<html lang="en">
-<head>
-    <meta charset="UTF-8">
-    <title>Admin panel</title>
-    <link rel="stylesheet" href="../CSS/adminScreen.css">
-    <link rel="stylesheet" href="../CSS/basicStyles.css">
-</head>
-
-<body>
-<div class="topSection">
-    <h1 id="headerMessage">Admin Panel</h1>
-    <h1 id="pollingResultsMessage">Polling results</h1>
-    <button id="fixIssuesButton">Fix Issues</button>
-</div>
-
 <?php
-include "util.php";
+//says it doesnt work in autofill but works on the webpage
+include '../../Model/util.php';
+
 session_start();
 
 //connect to the db
 $databaseConnection = createConnection($_SESSION['serverName'], $_SESSION['dbUsername'], $_SESSION['dbPassword'], $_SESSION['dbName']);
+
+//check if they're trying to fix an issue.
+if ($_SERVER['REQUEST_METHOD'] == 'POST'){
+    fixIssues($databaseConnection);
+}
+
 //query the results of the pole
 $sqlText = "SELECT Name, votes FROM candidates ORDER BY votes DESC";
 $queryResult = selectQuery($databaseConnection, $sqlText);
@@ -28,16 +20,16 @@ $queryResult = selectQuery($databaseConnection, $sqlText);
 echo "<div class='section-container'>";
 echo "<h1 id='prompt'> Top two candidates:</h1>";
 for ($i = 0; $i< 2; $i++){
-    $dataRow = $queryResult->fetch_assoc();
+    $dataRow = fetchRow($queryResult);
     printCandidateInfo($dataRow);
 }
 echo "</div>";
 
 //reset the dataset
-$queryResult->data_seek(0);
+$queryResult= resetDataScan($queryResult);
+
 //move the pointer to the last index of the dataset, which will be  lowest voted candidate
-$queryResult->data_seek($queryResult->num_rows -1);
-$dataRow = $queryResult->fetch_assoc();
+$dataRow = lastDataRow($queryResult);
 
 //print the result.
 echo "<div class='section-container'>";
@@ -46,27 +38,22 @@ printCandidateInfo($dataRow);
 echo "</div>";
 
 //reset the dataset again
-$queryResult->data_seek(0);
+$queryResult = resetDataScan($queryResult);
 
 //display the entire result.
 echo "<div class='section-container'>";
 echo "<h1 id='prompt'>Full Results:</h1><br>";
-while ($dataRow =  $queryResult->fetch_assoc()){
+while ($dataRow = fetchRow($queryResult)){
     printCandidateInfo($dataRow);
 }
 echo "</div>";
 
 //reset one more time and show the winner.
-$queryResult->data_seek(0);
+$queryResult = resetDataScan($queryResult);
 echo "<div class='section-container'>";
 echo "<h1 id='prompt'>Winner: </h1>";
-$dataRow = $queryResult->fetch_assoc();
+//grab the first row, it will be the winner since it's sorted in descending order.
+$dataRow = fetchRow($queryResult);
 printCandidateInfo($dataRow);
 echo "</div>";
-
 ?>
-
-
-
-</body>
-</html>

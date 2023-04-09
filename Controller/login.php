@@ -1,5 +1,5 @@
 <?php
-include 'util.php';
+include '../Model/util.php';
 
 
 // Check if the form was submitted
@@ -28,47 +28,43 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST') {
 
 
 
-    //Query the database(return the id so we can use it as a session token).
-    $sqlText = "SELECT VoterID, hasVoted FROM voters WHERE Login = ? AND Password = ?";
+    //check if their admin first.
+
+    $sqlText = "SELECT Login FROM admins WHERE Login = ? AND Password = ?";
     $queryResult = checkLogin($database, $sqlText, $login, $loginPassword);
 
-    //check if the query was successful
     if ($queryResult->num_rows > 0){
-
         $data = $queryResult->fetch_assoc();
-        //store the id and the login as session variables.
-        $_SESSION['id'] = $data['VoterID'];
+        $_SESSION['id'] = $data['AdminID'];
         $_SESSION['login'] = $login;
-
-
-
-        if (!$data['hasVoted']){
-            header("Location: ../html/votingScreen.html");
-        }
-        else{
-            echo " <h1>Vote has already been casted!!</h1>";
-            echo "<button id='mainMenuButton' onclick=\"location.href='./loginPage.php'\">Return</button>";
-        }
-
+        header("Location: ../View/Pages/adminPage.php");
     }
     else{
-        //check if they're an admin.
-        $sqlText = "SELECT Login FROM admins WHERE Login = ? AND Password = ?";
+        //if not admin check for voter
+        $sqlText = "SELECT VoterID, hasVoted FROM voters WHERE Login = ? AND Password = ?";
         $queryResult = checkLogin($database, $sqlText, $login, $loginPassword);
 
         if ($queryResult->num_rows > 0){
+
             $data = $queryResult->fetch_assoc();
-            $_SESSION['id'] = $data['AdminID'];
+            //store the id and the login as session variables.
+            $_SESSION['id'] = $data['VoterID'];
             $_SESSION['login'] = $login;
-            header("Location: ./adminScreen.php");
+
+            if (!$data['hasVoted']){
+                header("Location: ../View/Pages/votingPage.php");
+            }
+            else{
+                $_SESSION['error'] = "Your vote has already been casted!";
+                header("Location: ../View/Pages/loginPage.php");
+                exit();
+            }
         }
         else{
             //if they are neither voter or admin, they have inputted incorrectly.
             $_SESSION['error'] = "Incorrect username or password.";
-            header("Location: ./loginPage.php");
+            header("Location: ../View/Pages/loginPage.php");
             exit();
-
-
         }
     }
 }

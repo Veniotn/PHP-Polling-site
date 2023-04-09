@@ -1,5 +1,5 @@
 <?php
-include 'util.php';
+include '../Model/util.php';
 
 if ($_SERVER['REQUEST_METHOD'] == 'POST') {
     session_start();
@@ -24,7 +24,7 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST') {
    //on the create account page.
     if ($sqlResult->num_rows > 0){
         $_SESSION['error'] = "Username already exists";
-        header("Location: ./createAccountScreen.php");
+        header("Location: ../View/Pages/createAccountScreen.php");
         exit();
     }
 
@@ -38,7 +38,7 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST') {
 
     if ($sqlQuery->execute()){
         echo "login inserted!";
-        header("Location: ./loginPage.php");
+        header("Location: ../View/Pages/loginPage.php");
     }
     else{
         die("Insert failed.");

@@ -1,12 +1,10 @@
 <?php
-include 'util.php';
-
+include '../Model/util.php';
 
 session_start();
 if ($_SERVER['REQUEST_METHOD'] == 'POST'){
 //Check which button they pressed.
     $candidate = $_POST['Candidate'];
-
     //create a new db connection
     $database = createConnection($_SESSION['serverName'], $_SESSION['dbUsername'], $_SESSION['dbPassword'],
                                                                                    $_SESSION['dbName']);
@@ -22,8 +20,10 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST'){
 
 
 
+    $_SESSION['voted'] = "Successfully voted for ". $candidate . "!";
+    header("Location: ../View/Pages/voting.php");
     echo "<h1> Successfully voted for $candidate! </h1>";
-    echo "<button id='mainMenuButton' onclick=\"location.href='./loginPage.php'\">Main Menu!</button>";
+    echo "<button id='mainMenuButton' onclick=\"location.href='./loginPage.Controller'\">Main Menu!</button>";
 }
 
 

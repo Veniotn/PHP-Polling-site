@@ -8,7 +8,7 @@
 </head>
 <body>
 <h1 id="headerMessage">Vote for your favorite Candidate!</h1>
-<form action="../php/votingScreen.php" method="post">
+<form action="../../Controller/voting.php" method="post">
     <input type="submit" name="Candidate" value="Candidate #1">
     <input type="submit" name="Candidate" value="Candidate #2">
     <input type="submit" name="Candidate" value="Candidate #3">

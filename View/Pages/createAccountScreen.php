@@ -11,7 +11,7 @@
 
 <body>
 <h1 id="headerMessage">Create Account</h1>
-<form action="../php/createAccount.php" method="post">
+<form action="../../Controller/createAccount.php" method="post">
     <label for="username">Username:</label>
     <input type="text" id="username" name="username" required placeholder="<?php if (isset($_SESSION['error'])){
                                                             echo $_SESSION['error']; unset($_SESSION['error']);} ?>"><br>
