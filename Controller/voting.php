@@ -19,9 +19,9 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST'){
     updateQueryOneParam($database, $sqlText, $_SESSION['login']);
 
 
-
-    $_SESSION['voted'] = "Successfully voted for ". $candidate . "!";
-    header("Location: ../View/Pages/voting.php");
+    //just uses error tag to reduce code in loginPage.php
+    $_SESSION['error'] = "Successfully voted for ". $candidate . "!";
+    header("Location: ../View/Pages/loginPage.php");
     echo "<h1> Successfully voted for $candidate! </h1>";
     echo "<button id='mainMenuButton' onclick=\"location.href='./loginPage.Controller'\">Main Menu!</button>";
 }
